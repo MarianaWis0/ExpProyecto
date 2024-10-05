@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Registrar</title>
+    <link rel="icon" type="image/png" href="https://assets.mockflow.com/app/wireframepro/company/C99d92434c1d14e83b4ffa28302f9b5c0/projects/M2k68TLsPpb/images/thumbnails/M131a77798ce2ea7da91aa43f73b57e691718669850501">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+  
+    <style>
+        body {
+            background-image: url('https://i.pinimg.com/originals/af/07/ed/af07ed777318ec7c474804dbf7afdffb.gif');
+            background-size: cover;
+            background-repeat: no-repeat;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .ki {
+            width: 50%; 
+            padding: 10px;
+              background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(10px); 
+            border-radius: 15px;
+            color: white;
+            margin: auto;
+        }
+        
+        .preview-container {
+            position: relative;
+            width: 90px;
+            height: 80px; 
+            overflow: hidden;
+            border-radius: 50%; 
+            margin-left: 10px;
+            display: none; 
+        }
+
+        .preview-container img {
+            width: 100%;
+            height: 100%; 
+            object-fit: cover; 
+        }
+        
+      
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+    <div class="container-fluid">
+        <a class="navbar-brand text-white"><strong>La Criollada de Chester</strong></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+        <a class="nav-link " href="#">Nosotros ||</a>
+                <a class="nav-link " href="/categoria">Menú ||</a>
+                <a class="nav-link" href="/login">Iniciar Sesion</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="ki">
+    <div class="container mt-4">
+        <div th:if="${registroCorrecto}" class="alert alert-success" role="alert">
+            <span th:text="${registroCorrecto}"></span>
+        </div>
+
+        <h3>¡Registrate!</h3>
+        <br>
+        <form th:action="@{/registrar}" method="post" th:object="${usuario}" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Correo Electrónico</label>
+                        <input th:field="*{correoUsuario}" type="email" class="form-control" placeholder="Correo Electrónico" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Nombres</label>
+                        <input th:field="*{nomUsu}" type="text" class="form-control" placeholder="Nombres" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Número de Celular</label>
+                        <input th:field="*{fonoUsuario}" type="number" class="form-control" placeholder="Número de Celular" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    
+                    
+                        <div class="form-group">
+                        <label>Contraseña</label>
+                        <input th:field="*{contraUsuario}" type="password" class="form-control" placeholder="Contraseña" required>
+                    </div>
+                    
+                    
+                    <div class="form-group">
+                        <label>Apellidos</label>
+                        <input th:field="*{apeUsuario}" type="text" class="form-control" placeholder="Apellidos" required>
+                    </div>
+                    <div class="form-group">
+                        <label>DNI</label>
+                        <input th:field="*{dniUsuario}" type="number" class="form-control" placeholder="DNI" required>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="fotoPerfil">Foto de Perfil</label>
+                <div class="d-flex align-items-center">
+                    <input id="fotoPerfil" name="foto" accept="image/*" class="form-control-file" type="file" onchange="previewImage(event)" required>
+                    <div class="preview-container" id="previewContainer">
+                        <img id="preview" src="#" alt="Vista previa de la imagen">
+                    </div>
+                </div>
+            </div>
+          
+            <div class="text-center">
+                <button class="btn btn-info w-50" type="submit" >Registrar</button>
+                <br><br>
+                <p>¿Ya tienes una cuenta? <a href="/login">Iniciar Sesión</a></p>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Scripts de Bootstrap y jQuery -->
+<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script>
+    function previewImage(event) {
+        var input = event.target;
+        var preview = document.getElementById('preview');
+        var previewContainer = document.getElementById('previewContainer');
+
+        var reader = new FileReader();
+        reader.onload = function(){
+            preview.src = reader.result;
+            previewContainer.style.display = 'block'; 
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+</script>
+</body>
+</html>
